@@ -1,0 +1,9 @@
+package fourachievers.lf.enums;
+
+public enum ConfigProp {
+	URL, OVERRIDEREPORTS,PASSEDSTEPSSCREENSHOT,FAILEDSTEPSSCREENSHOT,SKIPPEDSTEPSSCREENSHOT,BROWSER,RETRYFAILEDTESTS;
+
+	private ConfigProp() {
+	}
+
+}

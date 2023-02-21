@@ -31,11 +31,15 @@ public class ExtentReport {
 		}
 	}
 
-	public static void flushReports() throws IOException {
+	public static void flushReports() {
 		if (Objects.nonNull(extent))
 			extent.flush();
 		ExtentManager.unload();
-		Desktop.getDesktop().browse(new File(FrameWorkConstants.getExtentReportFilePath()).toURI());
+		try {
+			Desktop.getDesktop().browse(new File(FrameWorkConstants.getExtentReportFilePath()).toURI());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	public static void createTest(String testcaseName) {

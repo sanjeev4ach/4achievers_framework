@@ -11,6 +11,8 @@ import java.util.Properties;
 
 import fourachievers.lf.constants.FrameWorkConstants;
 import fourachievers.lf.enums.ConfigProp;
+import fourachievers.lf.exceptions.InvalidPropertyFileException;
+import fourachievers.lf.exceptions.PropertyFileUsageException;
 
 public final class PropertyUtils {
 
@@ -21,18 +23,12 @@ public final class PropertyUtils {
 	private static final Map<String, String> CONFIGMAP = new HashMap<>();
 
 	static {
-		try {
-			FileInputStream fis = new FileInputStream(new File(FrameWorkConstants.getConfigPath()));
+		try (FileInputStream fis = new FileInputStream(new File(FrameWorkConstants.getConfigPath()))) {
 			prop.load(fis);
-			/*
-			 * for (Entry<Object, Object> tempMap : prop.entrySet())
-			 * CONFIGMAP.put(String.valueOf(tempMap.getKey()),
-			 * String.valueOf(tempMap.getValue()).trim());
-			 */
 			prop.entrySet()
 					.forEach(e -> CONFIGMAP.put(String.valueOf(e.getKey()), String.valueOf(e.getValue()).trim()));
 		} catch (FileNotFoundException e) {
-			e.printStackTrace();
+			throw new InvalidPropertyFileException("Please check the file of Configuration file");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -40,14 +36,14 @@ public final class PropertyUtils {
 
 	public static String get(ConfigProp key) {
 		if (Objects.isNull(key) || Objects.isNull(CONFIGMAP.get(key.name().toLowerCase())))
-			throw new RuntimeException(
+			throw new PropertyFileUsageException(
 					"Given Key/Property Name is - '\" + key + \"' not found in config.properties file.");
 		return CONFIGMAP.get(key.name().toLowerCase());
 	}
 
-	public static String getValue(ConfigProp key) throws IOException {
+	public static String getValue(ConfigProp key) {
 		if (Objects.isNull(key))
-			throw new RuntimeException(
+			throw new PropertyFileUsageException(
 					"Given Key/Property Name is - '" + key + "' not found in config.properties file.");
 		return prop.getProperty(key.name().toLowerCase());
 

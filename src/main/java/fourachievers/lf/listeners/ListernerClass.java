@@ -21,12 +21,7 @@ public class ListernerClass implements ITestListener, ISuiteListener {
 
 	@Override
 	public void onFinish(ISuite suite) {
-		try {
-			ExtentReport.flushReports();
-		} catch (IOException e) {
-
-			e.printStackTrace();
-		}
+		ExtentReport.flushReports();
 	}
 
 	@Override

@@ -12,8 +12,8 @@ public final class HomePageTest extends BaseTest{
 	
 	
 	@FrameworkAnnotation(author={"Rohit","Sanjeev"},category= {CategoryType.SMOKE,CategoryType.REGRESSION})
-	@Test
-	public void testaa() {
+	@Test(groups = "smoke",enabled = false)
+	public void login() {
 		System.out.println(DriverManager.getDriver().getTitle());
 	}
 	

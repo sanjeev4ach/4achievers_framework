@@ -28,8 +28,6 @@ public final class DataProviderUtils {
 
 			}
 		}
-
-		list.removeAll(iterationlist);
 		return iterationlist.toArray();
 	}
 }

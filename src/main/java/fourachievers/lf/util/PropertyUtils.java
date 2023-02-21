@@ -28,7 +28,7 @@ public final class PropertyUtils {
 			prop.entrySet()
 					.forEach(e -> CONFIGMAP.put(String.valueOf(e.getKey()), String.valueOf(e.getValue()).trim()));
 		} catch (FileNotFoundException e) {
-			throw new InvalidPropertyFileException("Please check the file of Configuration file");
+			throw new InvalidPropertyFileException("Please check the file of Config file.");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -37,7 +37,7 @@ public final class PropertyUtils {
 	public static String get(ConfigProp key) {
 		if (Objects.isNull(key) || Objects.isNull(CONFIGMAP.get(key.name().toLowerCase())))
 			throw new PropertyFileUsageException(
-					"Given Key/Property Name is - '\" + key + \"' not found in config.properties file.");
+					"Given Key/Property Name is - '" + key + "' not found in config.properties file.");
 		return CONFIGMAP.get(key.name().toLowerCase());
 	}
 
